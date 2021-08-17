@@ -3,8 +3,9 @@ import 'package:flutter_application/models/catalog.dart';
 import 'package:flutter_application/pages/home_detail_page.dart';
 import 'package:flutter_application/widgets/home_widgets/catalog_image.dart';
 //import 'package:flutter_application/pages/home_widgets/catalog_image.dart';
-import 'package:flutter_application/widgets/themes.dart';
+//import 'package:flutter_application/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 class CatalogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,18 +15,19 @@ class CatalogList extends StatelessWidget {
       itemBuilder: (context, index) {
         final catalog = CatalogModel.items[index];
         return InkWell(
-        onTap: () => Navigator.push(
-          context,MaterialPageRoute(
-          builder: (context)=>HomeDetailPage(
-            catalog: catalog),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeDetailPage(catalog: catalog),
             ),
-        ),
-        child: CatalogItem(catalog: catalog),
-       );
+          ),
+          child: CatalogItem(catalog: catalog),
+        );
       },
     );
   }
 }
+
 class CatalogItem extends StatelessWidget {
   final Item catalog;
 
@@ -39,7 +41,7 @@ class CatalogItem extends StatelessWidget {
         children: [
           Hero(
             tag: Key(catalog.id.toString()),
-                      child: CatalogImage(
+            child: CatalogImage(
               image: catalog.image,
             ),
           ),
@@ -48,8 +50,9 @@ class CatalogItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              catalog.name.text.lg.color(MyTheme.black).bold.make(),
-              catalog.desc.text.make(),10.heightBox,
+              catalog.name.text.lg.color(context.accentColor).bold.make(),
+              catalog.desc.text.make(),
+              10.heightBox,
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 buttonPadding: EdgeInsets.zero,
@@ -58,18 +61,18 @@ class CatalogItem extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () {},
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(MyTheme.black),
+                          backgroundColor: MaterialStateProperty.all(
+                              context.theme.buttonColor),
                           shape: MaterialStateProperty.all(
                             StadiumBorder(),
                           )),
-                      child: "Buy".text.make()),
+                      child: "Add to cart".text.make()),
                 ],
               ).pOnly(right: 8.0)
             ],
           )),
         ],
       ),
-    ).white.rounded.square(150).make().py16();
+    ).color(context.cardColor).rounded.square(150).make().py16();
   }
 }

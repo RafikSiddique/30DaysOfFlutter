@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/models/catalog.dart';
-import 'package:flutter_application/widgets/themes.dart';
+//import 'package:flutter_application/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeDetailPage extends StatelessWidget {
@@ -14,10 +14,10 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: MyTheme.creamColor,
+      appBar: AppBar(backgroundColor: Colors.transparent),
+      backgroundColor: context.canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
@@ -27,12 +27,12 @@ class HomeDetailPage extends StatelessWidget {
                     onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(MyTheme.black),
+                            MaterialStateProperty.all(context.theme.buttonColor),
                         shape: MaterialStateProperty.all(
                           StadiumBorder(),
                         )),
-                    child: "Buy".text.make())
-                .wh(100, 50),
+                    child: "Add to cart".text.make())
+                .wh(120, 50),
           ],
         ).p32(),
       ),
@@ -50,15 +50,22 @@ class HomeDetailPage extends StatelessWidget {
               arcType: VxArcType.CONVEY,
               edge: VxEdge.TOP,
               child: Container(
-                color: Colors.white,
+                color: context.cardColor,
                 width: context.screenWidth,
                 child: Column(
                   children: [
-                    catalog.name.text.xl4.color(MyTheme.black).bold.make(),
+                    catalog.name.text.xl4
+                        .color(context.accentColor)
+                        .bold
+                        .make(),
                     catalog.desc.text.xl.make(),
                     10.heightBox,
+                    "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topicTry to think about paragraphs in terms of thematic unity: a paragraph"
+                        .text
+                        .make()
+                        .p16()
                   ],
-                ).py64(),
+                ).py32(),
               ),
             ))
           ],
