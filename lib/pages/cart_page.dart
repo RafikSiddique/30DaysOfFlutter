@@ -28,14 +28,25 @@ class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartModel _cart = (VxState.store as MyStore).cart;
+
     return SizedBox(
       height: 200,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        "\$${_cart.totalPrice}"
-            .text
-            .xl5
-            .color(context.theme.accentColor)
-            .make(),
+        VxConsumer(
+          notifications: {},
+          mutations: {RemoveMutation},
+          // ignore: non_constant_identifier_names
+          builder: (context, _, _1)
+              //builder: (context,_)
+              {
+            print("Rebuild Happened");
+            return "\$${_cart.totalPrice}"
+                .text
+                .xl5
+                .color(context.theme.accentColor)
+                .make();
+          },
+        ),
         30.widthBox,
         ElevatedButton(
           onPressed: () {
@@ -55,10 +66,10 @@ class _CartTotal extends StatelessWidget {
   }
 }
 
-class _CartList extends StatelessWidget{
- 
+class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context, on: [RemoveMutation]);
     final CartModel _cart = (VxState.store as MyStore).cart;
     return _cart.items.isEmpty
         ? "Nothing to show".text.xl3.makeCentered()
@@ -68,10 +79,7 @@ class _CartList extends StatelessWidget{
               leading: Icon(Icons.done),
               trailing: IconButton(
                 icon: Icon(Icons.remove_circle_outline),
-                onPressed: () {
-                  _cart.remove(_cart.items[index]);
-                  //setState(() {});
-                },
+                onPressed: () => RemoveMutation(_cart.items[index]),
               ),
               title: _cart.items[index].name.text.make(),
             ),

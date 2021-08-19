@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_application/core/store.dart';
 import 'package:flutter_application/models/catalog.dart';
 import 'package:flutter_application/widgets/home_widgets/add_to_cart.dart';
 //import 'package:flutter_application/widgets/themes.dart';
@@ -14,6 +15,8 @@ class HomeDetailPage extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
       backgroundColor: context.canvasColor,
